@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: prometheus # Имя Service (должно быть уникальным в пространстве имён).
+spec:
+  type: ClusterIP  # По умолчанию доступ внутри кластера
+  selector:
+    app: prometheus # Должен совпадать с label пода, к которому делаем доступ через Service
+  ports:
+    - port: 9090 # Порт, на котором Service принимает запросы (внутри кластера)
+      targetPort: 9090 # Порт пода, на который Service перенаправляет трафик

@@ -1,0 +1,16 @@
+apiVersion: v1 # Версия API-ресурса (например, v1, apps/v1)
+kind: Pod # тип ресурса (Pod, Deployment, Service, ConfigMap и т. д.)
+metadata: # Имя, пространство имён, метки и аннотации.
+  name: prometheus
+  labels:
+    app: prometheus # Метки для организации и выбора ресурсов
+spec: # Описание желаемого состояния ресурса
+  containers: # Описывает контейнеры внутри пода
+    - name: prometheus #  Имя контейнера
+      image: prom/prometheus:v3.4.1 # Образ, который запускается внутри контейнера
+      command: # Команда для запуска процесса внутри контейнера (аналог аргументов в docker run)
+        - "prometheus"
+        - "--config.file=/etc/prometheus/prometheus.yml"
+      ports:
+        - containerPort: 9090
+  restartPolicy: Always # Политика перезапуска контейнеров в поде. Always — контейнер будет перезапускаться при падении
