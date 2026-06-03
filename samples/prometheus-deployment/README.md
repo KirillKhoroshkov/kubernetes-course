@@ -34,5 +34,12 @@
 1. kubectl apply -f prometheus-pvc.yaml # Применить манифест для PVC
 1. kubectl get pvc # Проверить статус
 1. kubectl describe pvc prometheus-pvc # Проверить параметры
-1. kubectl patch deployments.apps prometheus-deployment --patch-file patch-deployment-storage.yaml # Применение патча
+1. kubectl patch deployments.apps prometheus-deployment --patch-file prometheus-patch-storage.yaml # Применение патча
+```
+
+#### Secret
+
+```
+1. kubectl apply -f prometheus-secret.yaml # Применение манифеста с созданием секрета
+1. kubectl patch deployments.apps prometheus-deployment --patch-file prometheus-patch-secret.yaml
 ```
