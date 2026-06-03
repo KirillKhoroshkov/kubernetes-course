@@ -1,0 +1,21 @@
+#### Deployment
+
+```
+1. kubectl apply -f prometheus-deployment.yaml # Запуск деплоймента
+1. kubectl get deployments # Проверка, какие есть деплойменты
+1. kubectl get pods # Проверка подов
+1. kubectl scale deployment prometheus-deployment --replicas=3 # Увеличиваем количество реплик до трех
+1. kubectl get pods -l app=prometheus # Проверяем новое количество
+1. kubectl scale deployment prometheus-deployment --replicas=1 # Уменьшаем
+1. kubectl get pods -l app=prometheus # Проверяем
+```
+
+#### Service
+
+```
+1. kubectl apply -f prometheus-service.yaml # Запуск сервиса
+1. kubectl get service prometheus-service # Проверяем созданный сервис
+1. kubectl port-forward service/prometheus-service 9090:9090 # Временный проброс порта наружу
+1. kubectl get endpoints # Проверка списка эндпоинтов через устаревший endpoints
+1. kubectl get endpointslice # Проверка списка эндпоинтов через новый endpointslice
+```
