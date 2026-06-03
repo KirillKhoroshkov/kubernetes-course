@@ -19,3 +19,11 @@
 1. kubectl get endpoints # Проверка списка эндпоинтов через устаревший endpoints
 1. kubectl get endpointslice # Проверка списка эндпоинтов через новый endpointslice
 ```
+
+#### ConfigMap
+
+```
+1. kubectl apply -f prometheus-config.yaml # Применить полученный манифест
+1. kubectl get configmaps prometheus-config -o yaml # Убедиться, что конфиг имеет ожидаемое содержимое
+1. kubectl patch deployments.apps prometheus-deployment --patch-file prometheus-patch-configmap.yaml # Применение патча
+```
