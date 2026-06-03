@@ -1,0 +1,24 @@
+spec:
+  replicas: 1
+  template:
+    spec:
+      securityContext:
+        fsGroup: 65534
+      containers:
+        - name: prometheus
+          command:
+            - "prometheus"
+            - "--config.file=/etc/prometheus/prometheus.yml"
+            - "--storage.tsdb.path=/prometheus"
+          volumeMounts:
+            - name: config-volume
+              mountPath: /etc/prometheus
+            - name: prometheus-storage
+              mountPath: /prometheus
+      volumes:
+        - name: config-volume
+          configMap:
+            name: prometheus-config
+        - name: prometheus-storage
+          persistentVolumeClaim:
+            claimName: prometheus-pvc

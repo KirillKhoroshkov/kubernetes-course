@@ -27,3 +27,12 @@
 1. kubectl get configmaps prometheus-config -o yaml # Убедиться, что конфиг имеет ожидаемое содержимое
 1. kubectl patch deployments.apps prometheus-deployment --patch-file prometheus-patch-configmap.yaml # Применение патча
 ```
+
+#### PVC
+
+```
+1. kubectl apply -f prometheus-pvc.yaml # Применить манифест для PVC
+1. kubectl get pvc # Проверить статус
+1. kubectl describe pvc prometheus-pvc # Проверить параметры
+1. kubectl patch deployments.apps prometheus-deployment --patch-file patch-deployment-storage.yaml # Применение патча
+```
