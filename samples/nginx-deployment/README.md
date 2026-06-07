@@ -1,3 +1,5 @@
+#### Rollouts
+
 1. `kubectl apply -f configmap-nginx.yaml` - Создание configmap
 1. `kubectl apply -f deployment-nginx.yaml` - Запуск деплоймента
 1. `kubectl expose deployment nginx-deployment` - Создание Service для указанного Deployment
@@ -17,3 +19,13 @@
 1. `kubectl rollout history deployment nginx-deployment --revision 1` - Проверка первой ревизии
 1. `kubectl rollout undo deployment nginx-deployment --to-revision=1` - Откат
 1. `kubectl get pods` - Проверка состояния подов
+
+#### Probes
+
+1. `kubectl patch deployments.apps nginx-deployment --patch-file patch-nginx-probe.yaml` - Применить патч с хэлзчеками
+1. `kubectl describe pod <имя_актуального_pod>` - Проверка хэлзчеков у одной из под
+1. `kubectl patch deployment nginx-deployment --patch-file patch-nginx-broken-probe.yaml` - Применение патча
+1. `kubectl describe pod <имя_актуального_pod>` - Проверка хэлзчеков у одной из под
+1. `kubectl describe endpointslices.discovery.k8s.io nginx-deployment` - Проверка EndpointSlice
+1. `kubectl get po` - Проверка статусов подов
+1. `kubectl patch deployment nginx-deployment --patch-file patch-nginx-broken-probe.yaml` - Применение старого патча

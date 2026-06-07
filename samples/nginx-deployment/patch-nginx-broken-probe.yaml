@@ -1,0 +1,19 @@
+spec:
+  template:
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:1.29.4
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 801
+            initialDelaySeconds: 5
+            periodSeconds: 10
+
+          readinessProbe:
+            httpGet:
+              path: /test
+              port: 80
+            initialDelaySeconds: 3
+            periodSeconds: 5
