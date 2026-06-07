@@ -29,3 +29,8 @@
 1. `kubectl describe endpointslices.discovery.k8s.io nginx-deployment` - Проверка EndpointSlice
 1. `kubectl get po` - Проверка статусов подов
 1. `kubectl patch deployment nginx-deployment --patch-file patch-nginx-broken-probe.yaml` - Применение старого патча
+
+#### Jobs
+
+1. `kubectl apply -f nginx-check-cron.yaml` - Запустить CronJob
+1. `kubectl get jobs --watch` - Проверка исполнения

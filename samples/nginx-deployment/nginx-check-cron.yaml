@@ -1,0 +1,15 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: nginx-check-cron
+spec:
+  schedule: "* * * * *"  # каждая минута
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: cron-curl
+              image: curlimages/curl
+              command: [ "sh", "-c", "date; curl -s http://nginx-service; echo 'CronJob done'" ]
+          restartPolicy: Never
