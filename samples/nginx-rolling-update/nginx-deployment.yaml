@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-rollout
+spec:
+  replicas: 3
+  revisionHistoryLimit: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app: app-rollout
+  template:
+    metadata:
+      labels:
+        app: app-rollout
+    spec:
+      containers:
+        - name: app
+          image: nginx:1.24
+          ports:
+            - containerPort: 80
