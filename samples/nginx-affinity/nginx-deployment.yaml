@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-spread
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app-spread
+  template:
+    metadata:
+      labels:
+        app: app-spread
+    spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              podAffinityTerm:
+                labelSelector:
+                  matchExpressions:
+                    - key: app
+                      operator: In
+                      values:
+                        - app-spread
+                topologyKey: kubernetes.io/hostname
+      containers:
+        - name: app
+          image: nginx:stable
