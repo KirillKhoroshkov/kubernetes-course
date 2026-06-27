@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: miniapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: miniapp
+  template:
+    metadata:
+      labels:
+        app: miniapp
+    spec:
+      containers:
+        - name: web
+          image: hashicorp/http-echo:1.0
+          args:
+            - "-text=$(MESSAGE)"
+          env:
+            - name: MESSAGE
+              valueFrom:
+                configMapKeyRef:
+                  name: miniapp-config
+                  key: MESSAGE
+          ports:
+            - containerPort: 5678

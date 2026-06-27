@@ -1,0 +1,19 @@
+replicas: 1
+
+image:
+  repository: hashicorp/http-echo
+  tag: "1.0"
+
+service:
+  port: 80
+  targetPort: 5678
+
+containerPort: 5678
+
+config:
+  message: "Hello from Helm DEV"
+
+ingress:
+  enabled: true
+  className: nginx
+  host: std-50-kirillkhoroshkov-yet-another.kubernetes.praktikum-services.tech

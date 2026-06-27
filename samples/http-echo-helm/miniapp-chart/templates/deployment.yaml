@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "miniapp-chart.fullname" . }}
+  labels:
+    {{- include "miniapp-chart.labels" . | nindent 4 }}
+
+spec:
+  replicas: {{ .Values.replicas }}
+
+  selector:
+    matchLabels:
+      {{- include "miniapp-chart.selectorLabels" . | nindent 6 }}
+
+  template:
+    metadata:
+      labels:
+        {{- include "miniapp-chart.selectorLabels" . | nindent 8 }}
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+
+    spec:
+      containers:
+        - name: web
+
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+
+          args:
+            - "-text=$(MESSAGE)"
+
+          env:
+            - name: MESSAGE
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "miniapp-chart.fullname" . }}-config
+                  key: MESSAGE
+
+          ports:
+            - containerPort: {{ .Values.containerPort }}
